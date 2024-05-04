@@ -33,6 +33,7 @@
 ## 📫 How to reach me:
 - ![](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white) alex.jeraza@gmail.com
 - ![](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white) [LinkedIn](www.linkedin.com/in/jeronimo-alejandro)
+- ![](https://img.shields.io/badge/orcid-A6CE39?style=for-the-badge&logo=orcid&logoColor=white) [ORCID](https://orcid.org/0009-0001-3708-4637)
 
 ## ⚡ Tegnologies I been worked
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
