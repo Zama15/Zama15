@@ -7,11 +7,6 @@
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
-  - [GYMRAT](https://github.com/BrightCoders-Institute/s10a1-proyecto-final-team-03-s10a1-proyecto-final)
-![Rails](https://img.shields.io/badge/rails-%23CC0000.svg?style=for-the-badge&logo=ruby-on-rails&logoColor=white)
-![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
   - [Image Procesing](https://github.com/Zama15/ImageProcesing)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
@@ -20,15 +15,13 @@
 
 
 ## 🌱 I’m currently learning
-  - Ruby On Rails
-  - Ruby
   - Pytorch
   - Tensorflow
   - OpenCV
   - CNNs
   - REST
   - UX/UI
-  - Good Practices and standar for all my tecnologies
+  - Good Practices and standards for all my tecnologies
 
 ## 📫 How to reach me:
 - ![](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white) alex.jeraza@gmail.com
