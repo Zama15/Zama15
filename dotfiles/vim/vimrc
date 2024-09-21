@@ -1,0 +1,45 @@
+" Set the tab width to 2 spaces
+set tabstop=2       " The width of a <Tab> character
+set shiftwidth=2    " The width for auto-indents
+set expandtab       " Convert tabs to spaces
+
+" Enable syntax highlighting
+syntax on
+
+" Set colorscheme
+colorscheme desert  " Change 'desert' to your preferred colorscheme
+
+" Enable filetype plugins and indentation
+filetype plugin indent on
+
+" Enable mouse support in all modes
+set mouse=a
+
+" Map Ctrl+C to copy the current line to the clipboard
+nnoremap <C-c> :.w !xclip -selection clipboard<CR><CR>
+
+" Map Ctrl+C to copy the selected text to the clipboard in visual mode
+vnoremap <C-c> :w !xclip -selection clipboard<CR><CR>
+
+" Enable search highlighting
+set hlsearch
+
+" Function to add an empty line at the end of the file if needed
+function! AddEmptyLineAtEnd()
+  " Go to the last line
+  let l:last_line_num = line('$')
+  let l:last_line_content = getline(l:last_line_num)
+
+  " Check if the last line is not empty
+  if !empty(l:last_line_content)
+    " Add a new empty line at the end
+    call append(l:last_line_num, '')
+  endif
+endfunction
+
+" Autocommand to call the function on :wq
+augroup AddEmptyLine
+  autocmd!
+  autocmd BufWriteCmd * call AddEmptyLineAtEnd() | write
+augroup END
+
