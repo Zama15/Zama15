@@ -1,0 +1,91 @@
+# === GLOBAL PROPERTIES ===
+
+# Title text displayed at the top of the screen
+# Leave empty to disable
+title-text: ""
+title-font: "VictorMono Nerd Font Mono 16"
+title-color: "#ffffff"
+
+# Background configuration.
+desktop-color: "#2b2d42"
+
+# Terminal configuration
+terminal-box: "terminal_box_*.png"         # Terminal background image
+terminal-font: "VictorMono Nerd Font Mono 32"
+terminal-left: "33%"               # Distance from left edge (px or %)
+terminal-top: "50%"                    # Distance from top edge (px or %)
+terminal-width: "34%"                  # Width of terminal (px or %)
+terminal-height: "47%"                 # Height of terminal (px or %)
+terminal-border: "0"                   # Border thickness
+
+# === BOOT MENU CONFIGURATION ===
++ boot_menu {
+    # Position and size
+    left = 50%-240             # Center horizontally (50% - half of width)
+    top = 50%                  # Distance from top
+    width = 480                # Width in pixels
+    height = 35%               # Height as percentage
+    
+    # Item appearance
+    item_font = "VictorMono Nerd Font Mono 32"
+    item_color = "#edf2f4"                 # Normal item color
+    selected_item_color = "#ef233c"        # Selected item color
+    selected_item_pixmap_style = "select_*.png"  # Selection highlight image
+    
+    # Layout
+    item_height = 48          # Height of each menu entry
+    item_spacing = 40         # Space between menu entries
+    item_padding = 8          # Padding within each menu entry
+    row_spacing = 8
+    
+    # Icon configuration (optional)
+    icon_width = 48           # Width of menu icons
+    icon_height = 48          # Height of menu icons
+    icon_spacing = 8          # Space between icon and text
+}
+
+# === COUNTDOWN LABEL ===
++ label {
+    # Position and size
+    top = 92%
+    left = 50%-150
+    width = 300
+    height = 20
+    
+    # Text configuration
+    id = "__timeout__"        # Special ID for countdown
+    text = "Booting in %d seconds"
+    color = "#edf2f4"
+    font = "VictorMono Nerd Font Mono 16"
+    align = "center"          # Text alignment: "left", "center", "right"
+}
+
+# === CUSTOM COMPONENTS ===
+
+# Logo or additional image
++ image {
+    left = 50%-200            # Center horizontally
+    top = 7%             # Center vertically
+    width = 400
+    height = 400
+    file = "avatar.png"
+}
+
+# === THEME SPECIFIC SETTINGS ===
+
+# Custom help text
++ label {
+    top = 95%
+    left = 0
+    width = 100%
+    align = "center"
+    color = "#edf2f4"
+    text = "↑↓: Select | Enter: Boot | E: Edit | C: Command Line"
+    font = "VictorMono Nerd Font Mono 12"
+}
+
+# === FILE NAMING CONVENTIONS ===
+# For animation frames use: component_*.[png/jpg]
+# Example: select_*.png for selection highlight frames
+# Numbered sequence: select_1.png, select_2.png, etc.
+
