@@ -64,11 +64,12 @@ terminal-border: "0"                   # Border thickness
 
 # Logo or additional image
 + image {
-    left = 50%-200            # Center horizontally
-    top = 7%             # Center vertically
-    width = 400
-    height = 400
-    file = "avatar.png"
+    id = "dynamic_logo"		# Unique ID for the dynamic logo
+    left = 50%-200		# Center horizontally
+    top = 7%			# Position from the top
+    width = 400			# Width of the logo
+    height = 400		# Height of the logo
+    file = "logo_default.png"	# Default logo
 }
 
 # === THEME SPECIFIC SETTINGS ===

@@ -1,0 +1,43 @@
+#!/bin/sh
+exec tail -n +3 $0
+# This script dynamically changes the logo based on the selected menu entry.
+
+# Define the function to change the logo
+change_logo() {
+    local entry_name="$1"
+    case "$entry_name" in
+        "Windows")
+            echo "set theme=dynamic_logo:file=\"logo_windows.png\""
+            ;;
+        "Endeavour")
+            echo "set theme=dynamic_logo:file=\"logo_endeavour.png\""
+            ;;
+        "Debian")
+            echo "set theme=dynamic_logo:file=\"logo_endeavour.png\""
+            ;;
+        *)
+            echo "set theme=dynamic_logo:file=\"logo_default.png\""
+            ;;
+    esac
+}
+
+# Add menu entries with the logo change logic
+cat << EOF
+menuentry "Windows" {
+    $(change_logo "Windows")
+    chainloader /efi/Microsoft/Boot/bootmgfw.efi
+}
+
+menuentry "EndeavourOS Linux" {
+    $(change_logo "Endeavour")
+    linux /boot/vmlinuz-linux-lts root=UUID=2d521d57-1c40-4651-adfc-0e4c234c2d8e rw  nowatchdog nvme_load=YES resume=UUID=18093aa7-ff1e-4926-9ffb-023c931591db nvidia_drm.modeset=1 loglevel=3
+    initrd /boot/initramfs-linux-lts.img
+}
+
+menuentry "Debian" {
+    $(change_logo "Debian")
+    linux /boot/vmlinuz-linux-lts root=UUID=2d521d57-1c40-4651-adfc-0e4c234c2d8e rw  nowatchdog nvme_load=YES resume=UUID=18093aa7-ff1e-4926-9ffb-023c931591db nvidia_drm.modeset=1 loglevel=3
+    initrd /boot/initramfs-linux-lts.img
+}
+EOF
+
