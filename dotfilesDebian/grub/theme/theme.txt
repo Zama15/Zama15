@@ -8,9 +8,9 @@ title-color: "#ffffff"
 
 # Background configuration.
 desktop-color: "#2b2d42"
+desktop-image: "background.png"
 
 # Terminal configuration
-terminal-box: "terminal_box_*.png"         # Terminal background image
 terminal-font: "VictorMono Nerd Font Mono 32"
 terminal-left: "33%"               # Distance from left edge (px or %)
 terminal-top: "50%"                    # Distance from top edge (px or %)
@@ -29,7 +29,7 @@ terminal-border: "0"                   # Border thickness
     # Item appearance
     item_font = "VictorMono Nerd Font Mono 32"
     item_color = "#edf2f4"                 # Normal item color
-    selected_item_color = "#ef233c"        # Selected item color
+    selected_item_color = "#b2b7b9"        # Selected item color
     selected_item_pixmap_style = "select_*.png"  # Selection highlight image
     
     # Layout
