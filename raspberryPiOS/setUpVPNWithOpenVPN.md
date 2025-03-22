@@ -237,11 +237,6 @@ chmod +x create_client.sh
 ./create_client.sh <FILENAME_CLIENT_N>
 ```
 
-8.6 Transfer the `.ovpn` file to your client device (e.g., phone, laptop):
-```bash
-scp -P <CUSTOM_PORT> <USER>@<RASPBERRY_PI_IP>:<PATH_TO_FILE> <LOCAL_DESTINATION>
-```
-
 ---
 
 ## Part 3: Delete Clients from the VPN
