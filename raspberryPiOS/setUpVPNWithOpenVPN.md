@@ -273,3 +273,39 @@ rm /etc/openvpn/<FILENAME_CLIENT_N>.key
 #### 9.4 Clean up the PKI Index
 If needed, manually edit the `pki/index.txt` file to fix/delete invalid entries.
 
+---
+
+## Part 4: Connect to the VPN via Client
+
+### 10. Transfer the `.ovpn` File to Your Client Device
+```bash
+scp -P <CUSTOM_PORT> <USER>@<RASPBERRY_PI_IP>:<PATH_TO_FILE> <LOCAL_DESTINATION>
+```
+
+### 10.1 Install OpenVPN (version 2.4+):
+```bash
+sudo pacman -S openvpn
+```
+
+### 10.2 Connect to the VPN:
+```bash
+sudo openvpn --config ~/<FILENAME>.ovpn
+```
+
+### 10.3 Verify the Connection and Internet Access
+
+#### 10.4 Check for the `tun0` interface with the IP `10.8.0.X`:
+```bash
+ip a
+```
+
+#### 10.5 Check if it matches your server’s public IP:
+```bash
+curl ifconfig.me
+```
+
+#### 10.6 Check for Internet connection (ensure there is not 100% packet loss):
+```bash
+ping -c 4 8.8.8.8
+```
+
