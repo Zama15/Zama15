@@ -51,7 +51,7 @@ sync
 
 ---
 
-## Directory Contents
+# Directory Contents
 
 This repository contains the following setup and configuration guides:
 
