@@ -48,3 +48,18 @@ sync
 2. Insert it into your Raspberry Pi
 3. Connect peripherals (keyboard, mouse, display) and power supply
 4. Follow the initial setup instructions on first boot
+
+---
+
+## Directory Contents
+
+This repository contains the following setup and configuration guides:
+
+| File | Description |
+|------|-------------|
+| [clear memory usage in cache with crontab.md](clearMemoryUsageInCacheWithCrontab.md) | Setup automated memory cache clearing with crontab |
+| [make greeting message on SSH login boot.md](makeGreetingMsgOnSSHLoginBoot.md) | Configure system information display on SSH login |
+| [make system info script/command.md](makeSystemInfoScript.md) | Create a script for showing system information on demand |
+| [set up SSH remotely without password.md](setUpSSHRemotelyWithoutPassword.md) | Configure SSH with key-based authentication |
+| [set up timeshift on CLI OS.md](setUpTimeshiftOnCLIOS.md) | Set up Timeshift backup system for Raspberry Pi |
+| [set up VPN with openVPN.md](setUpVPNWithOpenVPN.md) | Complete guide to setting up an OpenVPN server |
