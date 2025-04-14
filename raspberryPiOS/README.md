@@ -57,9 +57,9 @@ This repository contains the following setup and configuration guides:
 
 | File | Description |
 |------|-------------|
-| [clear memory usage in cache with crontab.md](clearMemoryUsageInCacheWithCrontab.md) | Setup automated memory cache clearing with crontab |
-| [make greeting message on SSH login boot.md](makeGreetingMsgOnSSHLoginBoot.md) | Configure system information display on SSH login |
-| [make system info script/command.md](makeSystemInfoScript.md) | Create a script for showing system information on demand |
-| [set up SSH remotely without password.md](setUpSSHRemotelyWithoutPassword.md) | Configure SSH with key-based authentication |
-| [set up timeshift on CLI OS.md](setUpTimeshiftOnCLIOS.md) | Set up Timeshift backup system for Raspberry Pi |
-| [set up VPN with openVPN.md](setUpVPNWithOpenVPN.md) | Complete guide to setting up an OpenVPN server |
+| [clear memory usage in cache with crontab](clearMemoryUsageInCacheWithCrontab.md) | Setup automated memory cache clearing with crontab |
+| [make greeting message on SSH login boot](makeGreetingMsgOnSSHLoginBoot.md) | Configure system information display on SSH login |
+| [make system info script/command](makeSystemInfoScript.md) | Create a script for showing system information on demand |
+| [set up SSH remotely without password](setUpSSHRemotelyWithoutPassword.md) | Configure SSH with key-based authentication |
+| [set up timeshift on CLI OS](setUpTimeshiftOnCLIOS.md) | Set up Timeshift backup system for Raspberry Pi |
+| [set up VPN with openVPN](setUpVPNWithOpenVPN.md) | Complete guide to setting up an OpenVPN server |
