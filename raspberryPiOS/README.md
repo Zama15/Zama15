@@ -63,3 +63,5 @@ This repository contains the following setup and configuration guides:
 | [set up SSH remotely without password](setUpSSHRemotelyWithoutPassword.md) | Configure SSH with key-based authentication |
 | [set up timeshift on CLI OS](setUpTimeshiftOnCLIOS.md) | Set up Timeshift backup system for Raspberry Pi |
 | [set up VPN with openVPN](setUpVPNWithOpenVPN.md) | Complete guide to setting up an OpenVPN server |
+| [Installing Minecraft on PiOS Desktop](installingMinecraft.md) | Guide to install Minecraft on Raspberry Pi OS Desktop 64-bit |
+
