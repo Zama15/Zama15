@@ -1,3 +1,4 @@
+# Prisma ORM notes
 - [@id](https://www.prisma.io/docs/orm/reference/prisma-schema-reference#id):
   - normal pk for a database
   - can be added with @default which uses functions(autoincrement(), cuid(), uuid(), ulid())
@@ -81,4 +82,105 @@
 - [@ignore](https://www.prisma.io/docs/orm/reference/prisma-schema-reference#ignore)[@@ignore](https://www.prisma.io/docs/orm/reference/prisma-schema-reference#ignore-1)
   - @ignore to ignore a field you do not want be modified by domain layer
   - @@ignore to ignore a model you do not want be modified by domain layer
+
+# Local PostgreSQL + Prisma Setup Guide (Infrastructure Layer)
+
+## 1. Install PostgreSQL
+
+```bash
+sudo apt update
+sudo apt install postgresql postgresql-contrib
+```
+
+Check the installation:
+
+```bash
+psql --version
+# Example output: psql (PostgreSQL) 15.12
+```
+
+---
+
+## 2. Start PostgreSQL Service
+
+```bash
+sudo systemctl start postgresql
+```
+
+---
+
+## 3. Create a PostgreSQL User and Database
+
+Create a user (name it after your username):
+
+```bash
+sudo -u postgres createuser --interactive
+```
+
+Create the development database:
+
+```bash
+sudo -u your_username createdb reuc_dev
+```
+
+Set a password:
+
+```bash
+sudo -u postgres psql
+ALTER USER your_username WITH PASSWORD 'your_password';
+\q
+```
+
+Verify roles and databases:
+
+```bash
+sudo -u postgres psql -c "\du"
+sudo -u postgres psql -c "\l"
+```
+
+---
+
+## 4. Set Up Prisma ORM
+
+Navigate to the infrastructure layer:
+
+```bash
+cd packages/infrastructure/
+```
+
+### Install dependencies
+
+```bash
+pnpm add prisma @prisma/client
+npx prisma init
+```
+
+This creates a `prisma/` folder and a `.env` file.
+
+---
+
+## 5. Configure the `.env` file
+
+Open `.env` and update the database URL:
+
+```dotenv
+DATABASE_URL="postgresql://your_username:your_password@localhost:5432/reuc_dev?schema=public"
+```
+
+Replace `your_username` and `your_password` with your actual credentials.
+
+---
+
+## 6. Create Initial Migration
+
+Edit `prisma/schema.prisma` with your data models (e.g. `User`, `Student`, etc), then run:
+
+```bash
+npx prisma migrate dev --name init
+npx prisma generate
+```
+
+---
+
+Done! You're now ready to use Prisma with PostgreSQL locally.
 
