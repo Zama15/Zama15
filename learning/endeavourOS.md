@@ -84,3 +84,206 @@ sudo gparted
 ## Done!
 
 You now have the **best OS ever** as your main and only system. Goodbye Windows, hello power and freedom.
+
+---
+
+# Removing GRUB on Boot
+
+Now that you only have **EndeavourOS**, GRUB might feel useless. If you want to **boot directly into EndeavourOS**, follow these steps.
+
+But first, **let me be clear**:
+This guide **does not** remove the GRUB package, its files, or touch anything that could brick your system through deletion.
+Instead, this will help you **create a new boot entry** that boots directly, cleanly — without GRUB and without all the annoying text logs.
+
+Let’s get into it.
+
+> [!CAUTION]
+> Note on Boot Issues
+> Just like resizing partitions, messing with EFI entries and bootloaders **can** break things.
+> That said — I personally followed all of these steps and had **zero issues**. My system booted clean, without GRUB, and straight into EndeavourOS.
+> If something does go wrong (e.g. black screen, no boot), you’ll likely have to:
+> * Boot from a live USB
+> * Reinstall GRUB or systemd-boot
+> * Tweak the EFI entries manually
+> So proceed carefully, and **always back things up**.
+
+## 1. Create the New Boot Entry
+
+First, install the systemd-boot setup:
+
+```bash
+sudo bootctl install
+```
+
+This will create the necessary directories and files for a new boot entry. **Pay attention** to the output — you’ll need to know where these files live.
+
+Example output:
+
+```
+Created "/boot/efi/EFI/systemd".
+Created "/boot/efi/loader".
+Created "/boot/efi/loader/keys".
+Created "/boot/efi/loader/entries".
+Created "/boot/efi/EFI/Linux".
+Copied "/usr/lib/systemd/boot/efi/systemd-bootx64.efi" to "/boot/efi/EFI/systemd/systemd-bootx64.efi".
+Copied "/usr/lib/systemd/boot/efi/systemd-bootx64.efi" to "/boot/efi/EFI/BOOT/BOOTX64.EFI".
+Random seed file /boot/efi/loader/random-seed successfully written (32 bytes).
+Successfully initialized system token in EFI variable with 32 bytes.
+Created EFI boot entry "Linux Boot Manager".
+```
+
+## 2. Check Kernel and Initramfs Paths
+
+These files usually live in the `/boot/` directory. Check it:
+
+```bash
+sudo ls -l /boot/
+```
+
+You should see something like:
+
+```
+drwxr-x--- 5 root root - Dec 31  1969 efi
+drwxr-xr-x 6 root root - Jun  4 14:10 grub
+-rw------- 1 root root - Jun  6 13:57 initramfs-linux-fallback.img
+-rw------- 1 root root - Jun  6 13:57 initramfs-linux.img
+-rw------- 1 root root - Jun  6 13:56 initramfs-linux-lts-fallback.img
+-rw------- 1 root root - Jun  6 13:56 initramfs-linux-lts.img
+-rw-r--r-- 1 root root - Jun  6 13:56 vmlinuz-linux
+-rw-r--r-- 1 root root - Jun  6 13:56 vmlinuz-linux-lts
+```
+
+## 3. Create the `endeavouros.conf` Entry
+
+Since `bootctl install` created the boot structure in `/boot/efi/`, we need to copy the files there:
+
+```bash
+sudo cp /boot/vmlinuz-linux /boot/efi/
+sudo cp /boot/initramfs-linux.img /boot/efi/
+sudo cp /boot/initramfs-linux-fallback.img /boot/efi/
+```
+
+Now create your boot entry file:
+
+```bash
+sudo nano /boot/efi/loader/entries/endeavouros.conf
+```
+
+Paste this into the file:
+
+```
+title   EndeavourOS
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options root=UUID=<your-root-partition-uuid> rw quiet splash loglevel=3 nowatchdog
+```
+
+Replace `<your-root-partition-uuid>` with your actual root partition UUID. To get it:
+
+```bash
+lsblk -f
+```
+
+### a. Create a Pacman Hook to Auto-Copy on Kernel Updates
+
+> [!NOTE]
+> Since the copied files in `/boot/efi/` are **not** auto-updated by the system, we need a **Pacman hook** to keep them in sync.
+
+Create the hook:
+
+```bash
+sudo mkdir -p /etc/pacman.d/hooks
+sudo nano /etc/pacman.d/hooks/90-systemd-boot-copy.hook
+```
+
+Paste this in:
+
+```
+[Trigger]
+Type = Path
+Path = /boot/vmlinuz-linux
+Path = /boot/initramfs-linux.img
+Path = /boot/initramfs-linux-fallback.img
+Operation = Install
+Operation = Upgrade
+
+[Action]
+Description = Copy kernel and initramfs to EFI system partition...
+When = PostTransaction
+Exec = /usr/bin/bash -c 'cp /boot/vmlinuz-linux /boot/initramfs-linux*.img /boot/efi/'
+```
+
+This will ensure you’re always booting from the **latest kernel and initramfs**.
+
+## 4. Remove or Reorder Unwanted Boot Entries
+
+To list your current boot entries:
+
+```bash
+sudo efibootmgr
+```
+
+You’ll see something like:
+
+```
+BootCurrent: 0000
+Timeout: 0 seconds
+BootOrder: 0000,0001,0002
+Boot0000* Linux Boot Manager
+Boot0001* Windows Boot Manager
+Boot0002* endeavouros
+```
+
+To **remove** an entry:
+
+```bash
+sudo efibootmgr -b 0001 -B
+```
+
+Repeat for any entries you don’t want.
+
+> [!NOTE]
+> In my case:
+>
+> * `Boot0000` is the new systemd boot entry (✅ keep)
+> * `Boot0001` was a leftover Windows entry (❌ removed)
+> * `Boot0002` was the EndeavourOS GRUB entry (✅ keep)
+
+If you **don’t want to delete** GRUB, you can just reorder boot priorities:
+
+```bash
+sudo efibootmgr -o 0000
+```
+
+## 5. Clean Up the EFI Directory
+
+Check what’s there:
+
+```bash
+sudo ls /boot/efi/EFI/
+```
+
+Expected output:
+
+```
+Boot/
+Linux/
+Microsoft/
+systemd/
+endeavouros/
+```
+
+To remove Windows leftovers:
+
+```bash
+sudo rm -r /boot/efi/EFI/Microsoft
+```
+
+> [!WARNING]
+> You could also delete the GRUB folder here (`endeavouros/`), but I **don’t recommend** doing this unless you’re 100% sure.
+> If something breaks, you may need to boot from live USB and fix it manually. Do your research.
+
+## Done!
+
+On your next reboot, you should boot straight into **EndeavourOS** —
+no GRUB, no boot menu, no verbose text logs. Just clean and simple.
