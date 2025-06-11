@@ -200,20 +200,27 @@ Paste this in:
 
 ```
 [Trigger]
-Type = Path
-Path = /boot/vmlinuz-linux
-Path = /boot/initramfs-linux.img
-Path = /boot/initramfs-linux-fallback.img
+Type = Package
+Target = linux
+Target = linux-lts
 Operation = Install
 Operation = Upgrade
 
 [Action]
 Description = Copy kernel and initramfs to EFI system partition...
 When = PostTransaction
-Exec = /usr/bin/bash -c 'cp /boot/vmlinuz-linux /boot/initramfs-linux*.img /boot/efi/'
+Exec = /usr/bin/bash -c 'cp -v /boot/vmlinuz-linux /boot/initramfs-linux*.img /boot/efi/'
 ```
 
 This will ensure you’re always booting from the **latest kernel and initramfs**.
+
+> [!WARNING]
+> This hook assumes you're using the **default kernel packages** (`linux`, `linux-lts`) provided by Arch/EndeavourOS.
+> If you're using a **custom kernel** like `linux-zen`, `linux-hardened`, or `linux-xanmod`, you'll need to **add those to the hook** with additional `Target =` lines. Otherwise, the hook won’t run when those kernels are updated, and your EFI files could become out of sync.
+> You can check your installed kernels with:
+> ```bash
+> pacman -Q | grep linux
+> ```
 
 ## 4. Remove or Reorder Unwanted Boot Entries
 
