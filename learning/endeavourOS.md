@@ -294,3 +294,127 @@ sudo rm -r /boot/efi/EFI/Microsoft
 
 On your next reboot, you should boot straight into **EndeavourOS** —
 no GRUB, no boot menu, no verbose text logs. Just clean and simple.
+
+---
+
+# Adding Virtual RAM on Low Resources Laptop
+
+## 1. ZRAM
+
+Compresses and decompresses memory in real time. Here it's used more like RAM, effectively getting virtual RAM from physical drives.
+
+> \[!WARNING]
+>
+> * Because of the compress/decompress process, CPU load may increase, especially during heavy multitasking.
+> * On a low-end or thermally throttled CPU, this could cause performance dips.
+
+### a. Install
+
+```bash
+sudo pacman -S zram-generator
+```
+
+### b. Create Config File
+
+Create the following file to configure ZRAM:
+
+```bash
+sudo nano /etc/systemd/zram-generator.conf
+```
+
+Add these lines to the file:
+
+```
+[zram0]
+zram-size = min(min(ram, 4096) + max(ram - 4096, 0) / 2, 32 * 1024)
+compression-algorithm = zstd
+```
+
+> \[!NOTE]
+> This will create a "linear size 1:1 for the first 4G, then 1:2 above, up to a max of 32GB."
+> More examples and tweaks [here](https://man.archlinux.org/man/zram-generator.conf.5)
+
+### c. Reload service and start ZRAM generator
+
+Reload systemd daemons to apply the new config:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+Start the ZRAM service:
+
+```bash
+sudo systemctl start systemd-zram-setup@zram0
+```
+
+> \[!NOTE]
+> `@zram0` refers to the first ZRAM device (`/dev/zram0`). You can configure multiple devices (zram1, zram2…) but usually only one is needed.
+>
+> It's not necessary to enable the service because the generator dynamically creates the unit at boot time based on the config file.
+
+## 2. SWAP
+
+This will be used when the RAM overflows to the point where it would crash. It effectively works as a fallback, making it reliable for low-RAM machines during multitasking or heavy app usage. Here it's set up with the idea that [ZRAM](#zram) won’t be enough on its own.
+
+> \[!WARNING]
+>
+> * Swap on an SSD adds write cycles, which can reduce SSD lifespan over years of intense use.
+> * Although, if only using 2–4GB occasionally, it’s a minimal risk.
+
+### a. Create a 4GB swapfile (change size as needed)
+
+```bash
+sudo fallocate -l 4G /swapfile
+```
+
+This command **reserves 4GB of space** on your disk and creates a file named `/swapfile`.
+You can change `4G` to any value depending on how much fallback swap you want.
+
+### b. Secure the file
+
+```bash
+sudo chmod 600 /swapfile
+```
+
+This sets permissions to **owner read/write only**, preventing other users or processes from accessing it — important for security and system stability.
+
+### c. Format it as swap
+
+```bash
+sudo mkswap /swapfile
+```
+
+This command **initializes the file** as swap space so the system can recognize and use it as additional memory.
+
+### d. Enable it
+
+```bash
+sudo swapon /swapfile
+```
+
+This tells the kernel to **start using the swapfile immediately**, without needing a reboot.
+
+You can verify it’s active with:
+
+```bash
+free -h
+```
+
+Look under the `Swap:` line — it should now show 4GB (or whatever size you picked).
+
+### e. Make it permanent
+
+Open `/etc/fstab`:
+
+```bash
+sudo nano /etc/fstab
+```
+
+Add this line to the bottom of the file:
+
+```
+/swapfile none swap sw 0 0
+```
+
+This tells the system to **mount the swapfile automatically at every boot**, so you don’t have to enable it manually each time.
