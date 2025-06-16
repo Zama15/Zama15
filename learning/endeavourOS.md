@@ -155,12 +155,13 @@ drwxr-xr-x 6 root root - Jun  4 14:10 grub
 
 ## 3. Create the `endeavouros.conf` Entry
 
-Since `bootctl install` created the boot structure in `/boot/efi/`, we need to copy the files there:
+Since `bootctl install` created the boot structure in `/boot/efi/`, we need to copy the necessary files there for systemd-boot to work properly:
 
 ```bash
 sudo cp /boot/vmlinuz-linux /boot/efi/
 sudo cp /boot/initramfs-linux.img /boot/efi/
 sudo cp /boot/initramfs-linux-fallback.img /boot/efi/
+sudo cp /usr/share/systemd/bootctl/splash-arch.bmp /boot/efi/loader/
 ```
 
 Now create your boot entry file:
@@ -175,7 +176,8 @@ Paste this into the file:
 title   EndeavourOS
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
-options root=UUID=<your-root-partition-uuid> rw quiet splash loglevel=3 nowatchdog
+initrd  /initramfs-linux-fallback.img
+options root=UUID=<your-root-partition-uuid> rw splash loglevel=3 nowatchdog
 ```
 
 Replace `<your-root-partition-uuid>` with your actual root partition UUID. To get it:
@@ -184,10 +186,29 @@ Replace `<your-root-partition-uuid>` with your actual root partition UUID. To ge
 lsblk -f
 ```
 
+Then modify the loader config file to finalize the setup:
+
+```bash
+sudo nano /boot/efi/loader/loader.conf 
+```
+
+Paste this into the file:
+
+```ini
+default endeavouros
+timeout 3
+editor no
+console-mode max
+splash /loader/splash-arch.bmp
+```
+
+This will enable the splash art to appear briefly on boot.
+
 ### a. Create a Pacman Hook to Auto-Copy on Kernel Updates
 
 > [!NOTE]
 > Since the copied files in `/boot/efi/` are **not** auto-updated by the system, we need a **Pacman hook** to keep them in sync.
+> We intentionally **exclude the `splash-arch.bmp`** from this hook. It lives in `/boot/efi/loader/` — the standard location for systemd-boot assets — and is unlikely to change with system updates. Including it in the hook isn’t necessary, and avoiding it helps preserve any future customization we may want to do.
 
 Create the hook:
 
