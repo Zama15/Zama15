@@ -161,7 +161,6 @@ Since `bootctl install` created the boot structure in `/boot/efi/`, we need to c
 sudo cp /boot/vmlinuz-linux /boot/efi/
 sudo cp /boot/initramfs-linux.img /boot/efi/
 sudo cp /boot/initramfs-linux-fallback.img /boot/efi/
-sudo cp /usr/share/systemd/bootctl/splash-arch.bmp /boot/efi/loader/
 ```
 
 Now create your boot entry file:
@@ -177,7 +176,7 @@ title   EndeavourOS
 linux   /vmlinuz-linux
 initrd  /initramfs-linux.img
 initrd  /initramfs-linux-fallback.img
-options root=UUID=<your-root-partition-uuid> rw splash loglevel=3 nowatchdog
+options root=UUID=<your-root-partition-uuid> rw loglevel=3 nowatchdog
 ```
 
 Replace `<your-root-partition-uuid>` with your actual root partition UUID. To get it:
@@ -186,29 +185,10 @@ Replace `<your-root-partition-uuid>` with your actual root partition UUID. To ge
 lsblk -f
 ```
 
-Then modify the loader config file to finalize the setup:
-
-```bash
-sudo nano /boot/efi/loader/loader.conf 
-```
-
-Paste this into the file:
-
-```ini
-default endeavouros
-timeout 3
-editor no
-console-mode max
-splash /loader/splash-arch.bmp
-```
-
-This will enable the splash art to appear briefly on boot.
-
 ### a. Create a Pacman Hook to Auto-Copy on Kernel Updates
 
 > [!NOTE]
 > Since the copied files in `/boot/efi/` are **not** auto-updated by the system, we need a **Pacman hook** to keep them in sync.
-> We intentionally **exclude the `splash-arch.bmp`** from this hook. It lives in `/boot/efi/loader/` — the standard location for systemd-boot assets — and is unlikely to change with system updates. Including it in the hook isn’t necessary, and avoiding it helps preserve any future customization we may want to do.
 
 Create the hook:
 
@@ -224,6 +204,7 @@ Paste this in:
 Type = Package
 Target = linux
 Target = linux-lts
+Target = dracut
 Operation = Install
 Operation = Upgrade
 
@@ -242,6 +223,68 @@ This will ensure you’re always booting from the **latest kernel and initramfs*
 > ```bash
 > pacman -Q | grep linux
 > ```
+
+### b. Splash Animation (Optional)
+
+To get a good-looking boot animation, I recommend installing **Plymouth** with this command:
+
+```bash
+sudo pacman -S plymouth
+```
+
+> [!WARNING]
+> Arch-based systems like EndeavourOS support two initramfs generators: `mkinitcpio` and `dracut`. This guide assumes you're using the latest EndeavourOS, which defaults to `dracut`. If you're still using `mkinitcpio`, skip this section. This method is a minimal setup specifically for dracut users.
+
+Normally, configuring Plymouth with dracut requires creating a config file that manually adds the `plymouth` module. But in recent versions, simply installing the `plymouth` package automatically enables the module in dracut. We’ll take advantage of that and regenerate the initramfs directly.
+
+> [!TIP]
+> If you're a KDE user like me, I recommend installing these extra tools for better integration:
+> * `breeze-plymouth` – a splash theme that matches KDE's style
+> * `plymouth-kcm` – a GUI tool to manage Plymouth themes
+> ```bash
+> sudo pacman -S breeze-plymouth plymouth-kcm
+> ```
+
+#### I. Edit the systemd-boot Entry
+
+Open your bootloader entry file:
+
+```bash
+sudo nano /boot/efi/loader/entries/endeavouros.conf
+```
+
+Edit or add the `options` line to include `quiet splash` for a cleaner boot:
+
+```ini
+efi /EFI/Linux/endeavouros.efi
+options root=UUID=... rw quiet splash loglevel=3 nowatchdog
+```
+
+#### II. Regenerate Initramfs (via Dracut)
+
+Now, simply reinstall `dracut` to trigger the regeneration of the initramfs and let the hook copy it to the EFI partition:
+
+```bash
+sudo pacman -S dracut
+```
+
+Look for this in the output:
+
+```
+(5/6) Copy kernel and initramfs to EFI system partition...
+'/boot/vmlinuz-linux' -> '/boot/efi/vmlinuz-linux'
+'/boot/initramfs-linux.img' -> '/boot/efi/initramfs-linux.img'
+'/boot/initramfs-linux-fallback.img' -> '/boot/efi/initramfs-linux-fallback.img'
+...
+```
+
+This confirms that the initramfs was regenerated and copied successfully, with Plymouth now included.
+
+To verify everything is in place, run:
+
+```bash
+bootctl list
+```
 
 ## 4. Remove or Reorder Unwanted Boot Entries
 
