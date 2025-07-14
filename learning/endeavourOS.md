@@ -202,11 +202,24 @@ Paste this in:
 ```
 [Trigger]
 Type = Package
-Target = linux
-Target = linux-lts
-Target = dracut
 Operation = Install
 Operation = Upgrade
+Operation = Remove
+Target = dracut
+Target = linux
+Target = linux-lts
+Target = amd-ucode
+Target = intel-ucode
+Target = systemd
+
+[Trigger]
+Type = Path
+Operation = Install
+Operation = Upgrade
+Target = usr/lib/modules/*/vmlinuz
+Target = usr/lib/dracut/*
+Target = usr/lib/firmware/*
+Target = usr/src/*/dkms.conf
 
 [Action]
 Description = Copy kernel and initramfs to EFI system partition...
@@ -482,3 +495,4 @@ Add this line to the bottom of the file:
 ```
 
 This tells the system to **mount the swapfile automatically at every boot**, so you don’t have to enable it manually each time.
+
