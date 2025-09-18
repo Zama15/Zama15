@@ -9,7 +9,7 @@ export class AlejandroAzamar {
         this.role = 'Software Engineer — backend-focused';
         this.languages = { spanish: 'C2', english: 'B2' };
 
-        this.tech = [ 'PostgreSQL', 'MySQL', 'Firebase', Express',
+        this.tech = [ 'PostgreSQL', 'MySQL', 'Firebase', 'Express',
             'FastAPI', 'Kotlin', 'Ruby on Rails', 'Laravel',
         ];
 
