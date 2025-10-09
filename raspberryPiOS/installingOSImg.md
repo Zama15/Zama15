@@ -97,7 +97,7 @@ This method gives you direct control but is **extremely dangerous** if you are n
 If your downloaded file ends in `.xz`, you first need to decompress it. Open your terminal and run:
 
 ```bash
-xz -d your-image-name.img.xz
+unxz your-image-name.img.xz
 ```
 
 This will extract the `.img` file from the compressed archive.
@@ -136,3 +136,4 @@ sudo dd if=your-image-name.img of=/dev/sdX bs=4M status=progress && sync
 ## Done!
 
 Now you can safely eject the card. Your new operating system is now installed and ready to be booted in your Raspberry Pi!
+
