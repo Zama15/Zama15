@@ -491,7 +491,7 @@ sudo nano /etc/fstab
 Add this line to the bottom of the file:
 
 ```
-/swapfile none swap sw 0 0
+/swapfile none swap defaults,pri=-10 0 0
 ```
 
 This tells the system to **mount the swapfile automatically at every boot**, so you don’t have to enable it manually each time.
