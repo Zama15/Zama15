@@ -409,6 +409,14 @@ compression-algorithm = zstd
 
 > \[!NOTE]
 > This will create a "linear size 1:1 for the first 4G, then 1:2 above, up to a max of 32GB."
+> If you want a specific, unchanging amount of ZRAM, replace the formula with a simple value in megabytes. For example, to set it to 2GB (2048 MB):
+>
+> ```ini
+> [zram0]
+> zram-size = 2048 
+> compression-algorithm = zstd
+> ```
+>
 > More examples and tweaks [here](https://man.archlinux.org/man/zram-generator.conf.5)
 
 ### c. Reload service and start ZRAM generator
@@ -429,6 +437,46 @@ sudo systemctl start systemd-zram-setup@zram0
 > `@zram0` refers to the first ZRAM device (`/dev/zram0`). You can configure multiple devices (zram1, zram2…) but usually only one is needed.
 >
 > It's not necessary to enable the service because the generator dynamically creates the unit at boot time based on the config file.
+
+### d. Editing ZRAM Size
+
+To change the amount of ZRAM, edit the configuration file created.
+
+Open the config file:
+
+```bash
+sudo nano /etc/systemd/zram-generator.conf
+```
+
+Modify the size:
+
+```ini
+[zram0]
+zram-size = 4096
+compression-algorithm = zstd
+```
+
+
+To apply the changes the easiest and most reliable way to apply the new configuration is to simply **rebooting**.
+
+```bash
+reboot
+```
+
+> [!NOTE]
+> If you want to apply it without rebooting, you can run:
+>
+> ```bash
+> sudo systemctl daemon-reload
+> sudo systemctl restart systemd-zram-setup@zram0
+> ```
+
+To verify the new size with the `zramctl` command:
+```bash
+zramctl
+```
+
+This will show you the `DISKSIZE` of your `/dev/zram0` device.
 
 ## 2. SWAP
 
@@ -496,3 +544,50 @@ Add this line to the bottom of the file:
 
 This tells the system to **mount the swapfile automatically at every boot**, so you don’t have to enable it manually each time.
 
+
+### f. Editing Swap File Size
+
+Changing a swap file is a bit more involved because it can't be modify it while it's used. So it have to be disabled, removed, and created again.
+
+Let's say you want to change your swap from 4GB to 2GB.
+
+
+Turn off the current swap file
+
+```bash
+sudo swapoff /swapfile
+```
+
+Remove the old file:
+
+```bash
+sudo rm /swapfile
+```
+
+Create the new swap file. In this example, we'll create a 2GB file.
+
+```bash
+sudo fallocate -l 2G /swapfile
+```
+
+Re-apply the correct permissions and format:
+
+```bash
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+```
+
+Turn the new swap file on:
+
+```bash
+sudo swapon /swapfile
+```
+
+Verify the new size checking the output of `free -h`. The `Swap:` line should now show `2.0G`.
+
+```bash
+free -h
+```
+
+> [!NOTE]
+> You **do not need to edit `/etc/fstab` again**. Since the filename and path (`/swapfile`) are the same, the system will automatically mount your new, resized swap file on the next boot.
