@@ -385,13 +385,15 @@ Compresses and decompresses memory in real time. Here it's used more like RAM, e
 > * Because of the compress/decompress process, CPU load may increase, especially during heavy multitasking.
 > * On a low-end or thermally throttled CPU, this could cause performance dips.
 
-### a. Install
+### Setting up ZRAM
+
+#### a. Install
 
 ```bash
 sudo pacman -S zram-generator
 ```
 
-### b. Create Config File
+#### b. Create Config File
 
 Create the following file to configure ZRAM:
 
@@ -419,7 +421,7 @@ compression-algorithm = zstd
 >
 > More examples and tweaks [here](https://man.archlinux.org/man/zram-generator.conf.5)
 
-### c. Reload service and start ZRAM generator
+#### c. Reload service and start ZRAM generator
 
 Reload systemd daemons to apply the new config:
 
@@ -438,7 +440,7 @@ sudo systemctl start systemd-zram-setup@zram0
 >
 > It's not necessary to enable the service because the generator dynamically creates the unit at boot time based on the config file.
 
-### d. Editing ZRAM Size
+### Editing ZRAM
 
 To change the amount of ZRAM, edit the configuration file created.
 
@@ -455,7 +457,6 @@ Modify the size:
 zram-size = 4096
 compression-algorithm = zstd
 ```
-
 
 To apply the changes the easiest and most reliable way to apply the new configuration is to simply **rebooting**.
 
@@ -487,7 +488,8 @@ This will be used when the RAM overflows to the point where it would crash. It e
 > * Swap on an SSD adds write cycles, which can reduce SSD lifespan over years of intense use.
 > * Although, if only using 2–4GB occasionally, it’s a minimal risk.
 
-### a. Create a 4GB swapfile (change size as needed)
+### On Ext4
+#### a.1 Create a 4GB swapfile (change size as needed)
 
 ```bash
 sudo fallocate -l 4G /swapfile
@@ -496,7 +498,7 @@ sudo fallocate -l 4G /swapfile
 This command **reserves 4GB of space** on your disk and creates a file named `/swapfile`.
 You can change `4G` to any value depending on how much fallback swap you want.
 
-### b. Secure the file
+#### a.2 Secure the file
 
 ```bash
 sudo chmod 600 /swapfile
@@ -504,7 +506,7 @@ sudo chmod 600 /swapfile
 
 This sets permissions to **owner read/write only**, preventing other users or processes from accessing it — important for security and system stability.
 
-### c. Format it as swap
+#### a.3 Format it as swap
 
 ```bash
 sudo mkswap /swapfile
@@ -512,7 +514,7 @@ sudo mkswap /swapfile
 
 This command **initializes the file** as swap space so the system can recognize and use it as additional memory.
 
-### d. Enable it
+#### a.4 Enable it
 
 ```bash
 sudo swapon /swapfile
@@ -528,7 +530,7 @@ free -h
 
 Look under the `Swap:` line — it should now show 4GB (or whatever size you picked).
 
-### e. Make it permanent
+#### a.5 Make it permanent
 
 Open `/etc/fstab`:
 
@@ -545,7 +547,7 @@ Add this line to the bottom of the file:
 This tells the system to **mount the swapfile automatically at every boot**, so you don’t have to enable it manually each time.
 
 
-### f. Editing Swap File Size
+### b.1 Editing Swap File Size
 
 Changing a swap file is a bit more involved because it can't be modify it while it's used. So it have to be disabled, removed, and created again.
 
@@ -591,3 +593,32 @@ free -h
 
 > [!NOTE]
 > You **do not need to edit `/etc/fstab` again**. Since the filename and path (`/swapfile`) are the same, the system will automatically mount your new, resized swap file on the next boot.
+
+
+
+### On Btrfs
+
+#### a.1 Setting up Swap File
+
+We will use the native Btrfs utility which handles the complexity (disabling CoW, allocating correctly) in one command.
+
+```bash
+sudo btrfs filesystem mkswapfile --size 4G --uuid clear /swapfile
+```
+> [!NOTE]
+> Replace `4G` with your desired size (e.g., `8G`, `2G`).
+> This command automatically creates the file, disables CoW (Copy-on-Write), allocates the space, and formats it as swap.
+
+#### a.2 Activate the Swap File
+```bash
+sudo swapon /swapfile
+```
+
+#### a.3 Make it permanent
+You need to add this to your `/etc/fstab` so it loads on boot.
+```bash
+sudo bash -c "echo '/swapfile none swap defaults 0 0' >> /etc/fstab"
+```
+
+#### a.4 Verify everything
+Run `swapon --show` or `free -h`. You should see both your `/dev/zram0` (with higher priority, usually 100) and your `/swapfile` (with lower priority, usually -2).
