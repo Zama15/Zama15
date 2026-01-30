@@ -1,9 +1,9 @@
 ---
-slug: "qemu-virtual-machine-setup"
+slug: "qemu-virtual-machine"
 title: "Creating Virtual Machines with QEMU"
 description: "A quick guide to creating disk images and running virtual machines using QEMU and KVM."
-tags: ["virtualization", "qemu", "linux"]
-date: 2026-01-26
+tags: ["linux", "qemu"]
+date: 2025-09-08
 ---
 
 ## Create a Disk Image
@@ -34,19 +34,16 @@ Explanation of Options
 - `-vga virtio` → sets the display adapter (better performance).
 - `-display gtk,gl=on` → uses GTK display with OpenGL enabled.
 
-### Notes on Graphics Options
+To enable `-vga qxl`, load the required modules:
 
-> [!NOTE]
-> To enable `-vga qxl`, load the required modules:
->
-> ```bash
-> sudo modprobe qxl bochs_drm
-> ```
->
-> I recommend using `virtio`. You may also choose the display option with:
->
-> - `-display sdl`
-> - `-display gtk`
+```bash
+sudo modprobe qxl bochs_drm
+```
+
+I recommend using `virtio`. You may also choose the display option with:
+
+- `-display sdl`
+- `-display gtk`
 
 ## After Installation
 

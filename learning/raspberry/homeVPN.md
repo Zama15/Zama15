@@ -3,7 +3,7 @@ slug: "home-vpn"
 title: "Setting Up a VPN to a in-Home Server"
 description: "How to set up a Raspberry server in-home to direct trafict remotly with Open VPN."
 tags: ["linux", "raspios", "raspberry"]
-date: 2026-03-22
+date: 2025-03-22
 draft: true
 ---
 
