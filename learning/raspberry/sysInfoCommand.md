@@ -1,12 +1,22 @@
-# System Information Script Setup
+---
+slug: "system-information-command"
+title: "System Information Command"
+description: "Making a script into a commmand to output system information on execution in terminal."
+tags: ["linux", "raspios", "raspberry", "utils"]
+date: 2025-03-08
+---
 
-## 1. Create the script
-```
+## System Information Command
+
+1. Create the file
+
+```bash
 vim ~/sysinfo
 ```
 
-### 1.1 Add the code
-```bash
+Add the following into the file
+
+```
 #!/bin/bash
 
 # Storage usage for the root filesystem (32GB)
@@ -26,22 +36,26 @@ echo -e "\e[1;35mTimeshift Drive (30GB):\e[0m $timeshift_drive_usage"
 echo -e "\e[1;35mStorage Drive (88GB):\e[0m $storage_drive_usage"
 ```
 
-### 1.2 Save and Exit
+2. Save and Exit
+
 ```
 ESC :wq
 ```
 
-## 2. Make the script executable
-```
+3. Make the script executable
+
+```bash
 chmod +x ~/sysinfo
 ```
 
-## 3. Move it to a directory in your PATH
+3. Move it to the PATH
+
 ```
 sudo mv ~/sysinfo /usr/local/bin/sysinfo
 ```
 
-## 4. Test the command
+5. Test the command
+
 ```
 sysinfo
 ```

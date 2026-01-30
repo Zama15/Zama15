@@ -1,41 +1,66 @@
-# PostgreSQL Setup Guide
+---
+slug: "setup-postgresql-guide"
+title: "PostgreSQL Setup Guide"
+description: "How to install, configure, and manage PostgreSQL, including Prisma ORM integration and troubleshooting."
+tags: ["database", "postgresql", "prisma"]
+date: 2025-09-08
+---
 
 ## Setup
+
+1. Install PostgreSQL
 
 ```bash
 pacman -S postgresql postgresql-libs
 ```
 
-I always recommend using **sysz** to manage all the system services installed, so start the service with:
+2. Check the installation:
 
 ```bash
-sysz
+psql --version
 ```
 
-Install it with:
+3. Start the database cluster
 
 ```bash
-pacman -S sysz
+initdb -D /var/lib/postgres/data
 ```
 
-## PostgreSQL Manage
+4. Start PostgreSQL Service
+
+```bash
+sudo systemctl start postgresql
+```
+
+5. Create a PostgreSQL User and Database
+
+Create a user (recommended naming it after your username):
+
+```bash
+sudo -i -u postgres
+createuser --interactive
+```
+
+## Enter the PostgreSQL Command Line
 
 > ![NOTE]
 > I deeply believe that this is the best way to make any change, review, update, or anything related to the databases on PostgreSQL.
 
-### Switch to the postgres user
+1. Switch to the postgres user
 
 ```bash
 sudo -i -u postgres
 ```
 
-Then we enter the PostgreSQL command line:
+2. Then we enter the PostgreSQL command line:
 
 ```bash
 psql
 ```
 
 Here in the command line, we will be doing all the commands needed to manage databases.
+
+## Basics of PostgreSQL
 
 Before starting, here is the command to exit the `psql` command line:
 
@@ -49,8 +74,6 @@ or with:
 \q
 ```
 
-### Creating a new user
-
 First, let’s create a new user for the database we will be creating.
 
 > ![WARNING]
@@ -62,9 +85,7 @@ To create a new user:
 CREATE ROLE myuser WITH LOGIN PASSWORD 'mypassword';
 ```
 
-### Creating a database
-
-Now, to create the database:
+Create the database:
 
 ```sql
 CREATE DATABASE mydb OWNER myuser;
@@ -82,7 +103,7 @@ If you want to delete your database at some point, use:
 DROP DATABASE database_name;
 ```
 
-### Other useful commands
+### Useful Commands
 
 Show the users/roles:
 
@@ -120,13 +141,13 @@ or:
 \dt *.*
 ```
 
-### Export DB into a file
+## Export DB into a file
 
 ```bash
 pg_dump --schema-only -U myuser -d mydb > mydb.sql
 ```
 
-### Using PrismaORM
+## Using PrismaORM
 
 If you are using PrismaORM + PostgreSQL maybe you have run with this error while migrating the database
 
@@ -151,7 +172,7 @@ This is happening because Prisma's `migrate dev` command needs to create a secon
 
 To fix you have two options
 
-#### Make our development user a `SUPERUSER` (Recommended for Local Dev)
+### Make `SUPERUSER` (Recommended for Local Dev)
 
 This is perfectly fine and easy for a local machine.
 
@@ -161,7 +182,7 @@ Inside the PostgreSQL command line type:
 ALTER USER your_dev_user WITH SUPERUSER;
 ```
 
-#### Grant minimal permission to our development user (The "Correct" way)
+### Grant Minimal Permission (The "Correct" way)
 
 If you don't want to grant full superuser, you can grant _just_ the permission Prisma is asking for.
 

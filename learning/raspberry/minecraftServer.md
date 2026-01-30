@@ -1,3 +1,12 @@
+---
+slug: "minecraft-server"
+title: "Setting Up Minecraft Server"
+description: "How to set up a Raspberry as server to play minecraft online remotly."
+tags: ["linux", "raspios", "raspberry"]
+date: 2026-01-05
+draft: true
+---
+
 first lets make all the setup, lets install the java
 
 pacman -S jdk21-openjdk
@@ -16,7 +25,6 @@ now lets create a directory to make a more organizated structure
 
 mkdir minecraft
 cd minecraft
-
 
 MAKING A VANILLA SERVER
 
@@ -51,7 +59,7 @@ server-ip=
 query-port=<NEW_PORT>
 server-port=<NEW_PORT>
 
-then make the portforwarding with you network 
+then make the portforwarding with you network
 
 and the server is ready to go, initiate it with
 
@@ -59,18 +67,18 @@ java -Xms4096M -Xmx4096M -jar minecraft_server_X.X.X.jar nogui
 
 modify the -Xms and -Xmx to more bigger values if you are planning to allocate multiple players
 =====================================To make a modded server=====================================
-get the lastest version of the minecraft forge server at https://files.minecraftforge.net/net/minecraftforge/forge/, it is the link that says the link that says "Installer (have a classifier icon)" after copy the link paste on arch, this will download the jar file 
+get the lastest version of the minecraft forge server at https://files.minecraftforge.net/net/minecraftforge/forge/, it is the link that says the link that says "Installer (have a classifier icon)" after copy the link paste on arch, this will download the jar file
+
 > pacman -S fontconfig ttf-dejavu
 > wget https://maven.minecraftforge.net/net/minecraftforge/forge/1.20.1-47.3.6/forge-1.20.1-47.3.6-installer.jar
-Try to run the server that will get error, so no worries, the command will create multiple files and folder
+> Try to run the server that will get error, so no worries, the command will create multiple files and folder
 > java -jar forge-1.12.2-14.23.5.2860-installer.jar --installServer
-Now try run the server with the newly created jar
+> Now try run the server with the newly created jar
 > java -Xms4096M -Xmx4096M -jar forge-1.20.6-50.1.12-shim.jar nogui
-This will create multiple files again, between the files it will create a eula that you have to agree so
+> This will create multiple files again, between the files it will create a eula that you have to agree so
 > vim eula.txt
-change the line `eula=false` to `eula=true`
-Now run the server again, this will create the server.properties file
+> change the line `eula=false` to `eula=true`
+> Now run the server again, this will create the server.properties file
 > java -Xms4096M -Xmx4096M -jar forge-1.20.6-50.1.12-shim.jar nogui
-since the server now its running with defaults config lets continue with the next step but for now exit the server with
+> since the server now its running with defaults config lets continue with the next step but for now exit the server with
 > /stop
-

@@ -1,42 +1,38 @@
-# MariaDB Setup Guide
+---
+slug: "mariadb-notes"
+title: "MariaDB Notes"
+description: "Notes I am updating while I use more or learn new things about this database system."
+tags: ["database", "mariadb"]
+date: 2025-09-08
+---
 
 ## Setup
 
-Install MariaDB and its client libraries:
+1. Install MariaDB and its client libraries:
 
 ```bash
 pacman -S mariadb mariadb-clients mariadb-libs
 ```
 
-Start the MariaDB service using **sysz** (recommended):
-
-```bash
-sysz
-```
-
-If you haven’t installed `sysz` yet:
-
-```bash
-pacman -S sysz
-```
-
-> ![NOTE]
-> I deeply recommend this package to manage the system services, is very usuful, but it just a preference of mine, use at you own discretion.
-
-## MariaDB Manage
-
-> !\[NOTE]
-> I recommend using the MariaDB command line for most database management tasks, similar to PostgreSQL.
-
-### Before Starting Service
-
-Run this line
+2. Initialize MariaDB data directory:
 
 ```bash
 sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
 ```
 
-### Secure Installation
+This command serves multiple purpose:
+
+- Generates tables that handle the store of user, privileges, time zones, etc.
+- Setup the main user so MariaDB can read and write.
+- Finally sets where the software lives and stored the data.
+
+2. Start the MariaDB service:
+
+```bash
+sudo systemctl start mariadb
+```
+
+3. Secure Installation
 
 Run the built-in script to set root password and secure MariaDB:
 
@@ -51,7 +47,7 @@ This will allow you to:
 - Disallow root login remotely
 - Remove test database
 
-### Enter the MariaDB Command Line
+## Enter the MariaDB Command Line
 
 Switch to the MariaDB command line with:
 
@@ -65,16 +61,18 @@ To exit the MariaDB CLI:
 exit;
 ```
 
-### Creating a New User
+## Basics of MariaDB
 
-> !\[WARNING]
+Creating a New User
+
+> [!WARNING]
 > Use a dedicated user per database for security.
 
 ```sql
 CREATE USER 'myuser'@'localhost' IDENTIFIED BY 'mypassword';
 ```
 
-### Creating a Database
+Creating a Database
 
 ```sql
 CREATE DATABASE mydb;
@@ -106,7 +104,7 @@ To delete a user:
 DROP USER 'myuser'@'localhost';
 ```
 
-### Other Useful Commands
+## Useful Commands
 
 Show users:
 
@@ -138,8 +136,10 @@ Describe table structure:
 DESCRIBE table_name;
 ```
 
-### Export DB into a file
+## Export DB into a file
 
 ```bash
 mariadb-dump -u myuser -p --no-data mydb > mydb.sql
 ```
+
+Change `myuser` and `mydb` accordingly to your MariaDB user and database, you can also specify the place where the file will be saved `mydb.sql`
