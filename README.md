@@ -13,18 +13,11 @@
 </a>
 
 <br/>
-<br/>
-
-`TypeScript` &nbsp; `Node.js` &nbsp; `Linux (EndeavourOS)` &nbsp; `PostgreSQL`
-<br/>
-`Astro` &nbsp; `Docker` &nbsp; `CI/CD`
-
-<br/>
 
 ### Current Focus
-**Personal Digital Garden (zama15.net)**
+**Personal Digital Web (zama15.net)**
 <br/>
-*Hybrid Architecture (Vercel + Home Server) • Serverless API • Automated Content Sync*
+*Serverless API • Automated Content Sync*
 
 <br/>
 
