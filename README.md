@@ -74,4 +74,6 @@ export class AlejandroAzamar {
 }
 ```
 
-[![My Blog Stats](https://zama15.net/api/stats)](https://zama15.net/stats)
+<div align="center">
+  [![My Blog Stats](https://zama15.net/api/stats)](https://zama15.net/stats)
+</div>
