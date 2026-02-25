@@ -2,8 +2,12 @@ name: Trigger Blog Rebuild
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'learning/*.md'
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'learning/*.md'
   workflow_dispatch:
 
 jobs:
