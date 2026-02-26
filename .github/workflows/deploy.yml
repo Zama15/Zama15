@@ -1,21 +1,32 @@
-name: Trigger Blog Rebuild
+name: Update Blog Submodule
 on:
   push:
     branches: [ "main" ]
     paths:
       - 'learning/*.md'
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - 'learning/*.md'
-  workflow_dispatch:
 
 jobs:
-  ping-vercel:
+  update-parent-repo:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Zama15 Repository
+        uses: actions/checkout@v4
 
-      - name: Notify Vercel
+      - name: Update Submodule in Blog Repository
         run: |
-          curl -X POST "${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git clone https://${{ secrets.API_TOKEN_GITHUB }}@github.com/${{ github.repository_owner }}/blog.git parent-repo
+
+          cd parent-repo
+          git submodule update --init --remote src/content/learnings
+          
+          # 4. Check if there are actually changes to commit
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "chore: update posts to latest commit from Zama15 Repository"
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
