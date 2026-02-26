@@ -17,7 +17,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          git clone https://${{ secrets.API_TOKEN_GITHUB }}@github.com/${{ github.repository_owner }}/blog.git parent-repo
+          git clone https://x-access-token:${{ secrets.API_TOKEN_GITHUB }}@github.com/${{ github.repository_owner }}/blog.git parent-repo
 
           cd parent-repo
           git submodule update --init --remote src/content/learnings
