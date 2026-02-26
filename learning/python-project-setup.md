@@ -2,7 +2,7 @@
 slug: "python-project-setup"
 title: "Setting Up a Python Project with venv and pyproject.toml"
 description: "A quick guide on how to initialize a Python project using virtual environments, the src-layout, and pyproject.toml."
-tags: ["python"]
+tags: ["python", "utils"]
 date: 2026-02-25
 ---
 
