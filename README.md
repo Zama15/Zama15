@@ -15,9 +15,9 @@
 <br/>
 
 ### Current Focus
-**Personal Digital Web (zama15.net)**
+**Software Developer at Evcon Energy**
 <br/>
-*Serverless API • Automated Content Sync*
+*Fullstack Developer • Automated Test*
 
 <br/>
 
