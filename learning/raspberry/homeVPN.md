@@ -1,8 +1,9 @@
 ---
 slug: "home-vpn"
-title: "Setting Up a VPN to a in-Home Server"
-description: "How to set up a Raspberry server in-home to direct trafict remotly with Open VPN."
+title: "How to Set Up a Home OpenVPN Server on Raspberry Pi"
+description: "Learn how to securely configure an OpenVPN server on a Raspberry Pi. This step-by-step guide covers PKI setup, firewall routing, and client management."
 tags: ["linux", "raspios", "raspberry"]
+keywords: "OpenVPN server setup, Raspberry Pi VPN, home server VPN, OpenVPN Easy-RSA tutorial, secure remote access, self-hosted VPN, Linux VPN configuration"
 date: 2025-03-22
 draft: true
 ---

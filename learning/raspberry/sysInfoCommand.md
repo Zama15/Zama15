@@ -1,8 +1,9 @@
 ---
 slug: "system-information-command"
-title: "System Information Command"
-description: "Making a script into a commmand to output system information on execution in terminal."
+title: "How to Create a Custom Linux System Info Command"
+description: "Discover how to create a custom Linux system information command using a bash script. Easily monitor RAM and storage directly from the terminal."
 tags: ["linux", "raspios", "raspberry", "utils"]
+keywords: "custom linux command, bash script system info, linux terminal utilities, check linux storage and ram, executable bash script, raspberry pi system monitor"
 date: 2025-03-08
 ---
 

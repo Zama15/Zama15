@@ -1,8 +1,9 @@
 ---
 slug: "adding-vram"
-title: "Adding SWAP or ZRAM"
-description: "Guide to how to add more SWAP or ZRAM for low resources machines."
+title: "How to Add SWAP and ZRAM on Linux for Low-RAM PCs"
+description: "Boost your low-RAM Linux machine's performance. Follow this complete step-by-step guide to configure ZRAM and create a SWAP file on Ext4 or Btrfs filesystems."
 tags: ["endeavour", "linux"]
+keywords: "linux swap file, configure zram linux, create swap btrfs, ext4 swap configuration, optimize low ram linux, zram-generator guide, linux memory management"
 date: 2025-09-25
 ---
 

@@ -1,9 +1,10 @@
 ---
 slug: "maining-endevourOS"
-title: "Maining EndevourOS"
-description: "Guide to how to pass from a dual boot with Windows 11 and EndeavourOS to a full main EndeavourOS."
+title: "Remove Windows Dual Boot: Make EndeavourOS Your Main OS"
+description: "Ready to ditch Windows? Learn how to safely remove Windows from a dual-boot setup and expand your EndeavourOS partitions using GParted and a live USB."
 tags: ["endeavour", "linux"]
 date: 2025-09-25
+keywords: "EndeavourOS guide, remove Windows dual boot, delete Windows partition, expand Linux partition GParted, switch to EndeavourOS, EndeavourOS live USB, resize unallocated space Linux"
 ---
 
 ## Removing Windows From EOS Partition

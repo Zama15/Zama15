@@ -1,8 +1,9 @@
 ---
 slug: "installing-minecraft"
-title: "Installing Minecraft on Raspberry"
-description: "How to install Minecraft on a Raspberry Pi OS and play it."
+title: "Install Minecraft on Raspberry Pi 5: Complete Guide"
+description: "Learn how to install and play Minecraft on a Raspberry Pi 5. This technical guide covers compiling PrismLauncher, Java 8, and fixing OpenGL via X11."
 tags: ["linux", "raspios", "raspberry", "utils"]
+keywords: "install Minecraft Raspberry Pi 5, run Minecraft on Raspberry Pi OS, PrismLauncher Raspberry Pi, play Minecraft Raspberry Pi, Raspberry Pi 5 gaming, Minecraft Java 8 Linux, fix Raspberry Pi OpenGL"
 date: 2025-04-15
 ---
 

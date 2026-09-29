@@ -1,8 +1,9 @@
 ---
 slug: "removing-grub"
-title: "Removing GRUB"
-description: "Guide to how to remove GRUB on boot without bricking your OS."
+title: "Safely Remove GRUB & Switch to systemd-boot"
+description: "Learn how to safely remove GRUB on boot without bricking your Linux system. Follow this step-by-step guide to set up a clean systemd-boot on EndeavourOS."
 tags: ["endeavour", "linux"]
+keywords: "remove GRUB, bypass GRUB Linux, systemd-boot setup, clean Linux boot, EndeavourOS bootloader, replace GRUB with systemd-boot, pacman hook kernel"
 date: 2025-09-25
 ---
 

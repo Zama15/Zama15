@@ -1,8 +1,9 @@
 ---
 slug: "welcome-message"
-title: "Welcome Message"
-description: "Making a welcome message for a linux system"
+title: "Custom Linux Login Welcome Message with System Stats"
+description: "Enhance your terminal with a custom Linux welcome message. Follow this quick tutorial to edit your profile and display RAM and storage stats on every login."
 tags: ["linux", "raspios", "raspberry", "utils"]
+keywords: "Linux welcome message, bash profile, system stats on login, terminal RAM usage, shell profile configuration, custom Linux login, bash scripting"
 date: 2025-03-08
 ---
 

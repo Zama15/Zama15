@@ -1,8 +1,9 @@
 ---
 slug: "password-less-ssh"
-title: "Setting Up Password-less SSH Login"
-description: "Setting up a Raspberry Pi OS password-less SSH login as remote server."
+title: "Secure Passwordless SSH Login for Raspberry Pi Servers"
+description: "Learn how to configure a secure, passwordless SSH login for your Raspberry Pi server. This step-by-step guide covers SSH keys, custom ports, and firewalls."
 tags: ["linux", "raspios", "raspberry"]
+keywords: "passwordless SSH, Raspberry Pi SSH setup, secure SSH login, SSH key authentication, change SSH port, Linux remote server, ssh-copy-id guide"
 date: 2025-10-09
 ---
 

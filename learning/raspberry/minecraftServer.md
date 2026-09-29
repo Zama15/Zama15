@@ -1,8 +1,9 @@
 ---
 slug: "minecraft-server"
-title: "Setting Up Minecraft Server"
-description: "How to set up a Raspberry as server to play minecraft online remotly."
+title: "Raspberry Pi Minecraft Server Setup (Vanilla & Forge)"
+description: "Learn how to easily build and host a custom Vanilla or Forge Minecraft server on a Raspberry Pi. Step-by-step guide on port forwarding and Java setup."
 tags: ["linux", "raspios", "raspberry"]
+keywords: "Minecraft server setup, Raspberry Pi Minecraft server, host Minecraft server Linux, install Forge server, Minecraft port forwarding, Vanilla Minecraft server, Minecraft Java Edition server"
 date: 2026-01-05
 draft: true
 ---

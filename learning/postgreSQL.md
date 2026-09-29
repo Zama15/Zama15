@@ -1,8 +1,9 @@
 ---
 slug: "setup-postgresql-guide"
-title: "PostgreSQL Setup Guide"
-description: "How to install, configure, and manage PostgreSQL, including Prisma ORM integration and troubleshooting."
+title: "PostgreSQL Setup Guide & Prisma Migration Fixes"
+description: "Learn how to install and manage a PostgreSQL database from the command line. Includes essential psql commands and fixes for Prisma ORM migration errors."
 tags: ["database", "postgresql", "prisma"]
+keywords: "PostgreSQL setup, install PostgreSQL, psql commands, create PostgreSQL user, Prisma ORM migration error, shadow database permission denied, Prisma P3014 fix"
 date: 2025-09-08
 ---
 
@@ -43,7 +44,7 @@ createuser --interactive
 
 ## Enter the PostgreSQL Command Line
 
-> ![NOTE]
+> [!NOTE]
 > I deeply believe that this is the best way to make any change, review, update, or anything related to the databases on PostgreSQL.
 
 1. Switch to the postgres user

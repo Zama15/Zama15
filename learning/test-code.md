@@ -1,9 +1,10 @@
 ---
 slug: "css-code-test"
-title: "Code Syntax Highlighting Stress Test"
-description: "A brutal test for Shiki themes, font-styles, weights, and decorations."
+title: "Shiki Syntax Highlighting Stress Test for Code Themes"
+description: "Use this Shiki syntax highlighting stress test to evaluate your code themes. Verify font styles, weights, and colors across HTML, CSS, JavaScript, and Python."
 date: 2026-02-09
 tags: ["test", "css", "shiki"]
+keywords: "Shiki syntax highlighting, syntax highlighting stress test, Shiki themes, code syntax test, markdown code blocks, code theme styling, syntax highlighting colors"
 draft: true
 ---
 

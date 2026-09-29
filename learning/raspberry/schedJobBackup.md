@@ -1,8 +1,9 @@
 ---
 slug: "sched-job-to-backup-system"
-title: "Schedule a Job to Backup the System with Cron"
-description: "Scheduling a job with crontab to backing up the entire system with crontab."
+title: "Automate Linux System Backups with Timeshift"
+description: "Learn how to automate Linux system backups with Timeshift. This step-by-step guide covers disk partitioning, fstab automounting, and scheduling snapshots."
 tags: ["linux", "raspios", "raspberry", "utils"]
+keywords: "Linux system backup, Timeshift backup setup, automate Linux backups, schedule Timeshift snapshots, Raspberry Pi backup, Linux disk partitioning, fstab automounting"
 date: 2025-03-08
 draft: true
 ---

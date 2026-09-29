@@ -1,8 +1,9 @@
 ---
 slug: "installing-os-img"
-title: "Installing OS Img"
-description: "Tutorial to installing a OS image on a Raspberry and what OS choose"
+title: "Install OS on Raspberry Pi: Choose & Flash Images"
+description: "Discover how to select the best OS for your Raspberry Pi and easily write the image to a MicroSD card using the official Imager tool or the Linux dd command."
 tags: ["linux", "raspberry"]
+keywords: "install Raspberry Pi OS, flash OS to MicroSD, Raspberry Pi Imager guide, best OS for Raspberry Pi, write image with dd command, Raspberry Pi setup tutorial, Linux ARM distributions"
 date: 2025-04-15
 ---
 

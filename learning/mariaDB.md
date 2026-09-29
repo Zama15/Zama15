@@ -1,8 +1,9 @@
 ---
 slug: "mariadb-notes"
-title: "MariaDB Notes"
-description: "Notes I am updating while I use more or learn new things about this database system."
+title: "MariaDB Cheat Sheet: Setup, Commands & Export"
+description: "Master MariaDB with this complete cheat sheet and technical guide. Learn database installation, user management, security, and essential CLI commands."
 tags: ["database", "mariadb"]
+keywords: "MariaDB cheat sheet, MariaDB setup guide, database management, MariaDB CLI commands, secure MariaDB installation, create MariaDB user, export MariaDB database"
 date: 2025-09-08
 ---
 

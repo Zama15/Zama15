@@ -1,8 +1,9 @@
 ---
 slug: "python-project-setup"
-title: "Setting Up a Python Project with venv and pyproject.toml"
-description: "A quick guide on how to initialize a Python project using virtual environments, the src-layout, and pyproject.toml."
+title: "Modern Python Project Setup: venv & pyproject.toml"
+description: "Learn how to set up a modern Python project from scratch. This guide covers venv, the src-layout, and pyproject.toml configuration for best practices."
 tags: ["python", "utils"]
+keywords: "Python project setup, pyproject.toml configuration, Python virtual environment, Python src-layout pattern, create Python CLI command, Python best practices"
 date: 2026-02-25
 ---
 

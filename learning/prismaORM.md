@@ -1,8 +1,9 @@
 ---
 slug: "prisma-orm-notes"
-title: "Prisma ORM Notes"
-description: "Personal notes on Prisma schema references, relations, and setting up a local infrastructure with testing."
+title: "Prisma ORM Guide: Schema Relations & Local Postgres Setup"
+description: "Master Prisma ORM with this practical guide. Learn how to define schema relations and set up a local PostgreSQL database cluster for collaborative development."
 tags: ["database", "postgresql", "prisma"]
+keywords: "Prisma ORM tutorial, Prisma schema relations, local PostgreSQL setup, Prisma database migrations, Prisma client configuration, database schema management"
 date: 2025-04-16
 ---
 

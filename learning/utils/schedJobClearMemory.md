@@ -1,8 +1,9 @@
 ---
 slug: "sched-job-to-clear-memory"
-title: "Schedule a Job to Clear Memory with Cron"
-description: "Scheduling a job with crontab to clear memory on RAM with crontab command."
+title: "Automate Clearing Linux RAM Cache with a Cron Job"
+description: "Learn how to schedule a root cron job to automatically clear your Linux RAM cache. Follow this simple guide to use crontab and drop_caches safely."
 tags: ["linux", "endeavour", "utils"]
+keywords: "clear linux memory, automate ram cache clearing, cron job memory management, linux drop_caches, crontab clear ram, free up linux memory"
 date: 2025-03-08
 ---
 
